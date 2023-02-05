@@ -65,7 +65,7 @@ const [number, setNumber] = useState<string | number>();
 
 
 
-# make fixLength "false" to add number bigger than fotmat.length
+#### make fixLength "false" to add number bigger than fotmat.length
 ```typescript
 <NumberFormatter
   defaultCountry="USA"
