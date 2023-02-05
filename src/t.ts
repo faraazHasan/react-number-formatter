@@ -1,5 +1,5 @@
 export interface NumberFormatterProps {
-    value: string;
+    value: string | number | undefined;
     getValue: (number: string) => void;
     inputClass?: string;
     selectorClass?: string;
