@@ -13,7 +13,17 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
     const [format, setFormat] = useState<string>(props.format? props.format : defaultCountry.f);
     const [fixedLength] = useState<boolean>(props.fixLength || props.fixLength === undefined ? true : false);
 
-    props.getCountryCode && props.getCountryCode(countryCode);
+    if(props.getCountryCode) {
+        const {prefix} = getDividersPositions(format);
+        let cCode: string = "";
+        for(let i = 0; i < prefix.length; i++) {
+            if(Number(prefix[i])) {
+                cCode += prefix[i];
+            }
+        }
+        cCode = cCode ? "+" + cCode : "";
+        props.getCountryCode(cCode);
+    }
     
     const ondown = async (key: string, e: React.KeyboardEvent<HTMLInputElement>) => {
         const { dividers, prefixIndexes, prefix, justSymbols } = getDividersPositions(format);
