@@ -6,7 +6,7 @@ This react input component automatically formats phone numbers inside input and 
 Run this command in your terminal
 
 ```bash
-npm i react-number-formatter
+npm add react-number-formatter
 ```
 
 
