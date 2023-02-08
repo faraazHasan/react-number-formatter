@@ -13,9 +13,6 @@ npm add react-number-formatter
 | Props | Description |
 | --- | --- |
 | getCountryCode | To get selected country code |
-| inputClass | To style input. |
-| selectorClass | To style select button |
-| menuClass | To style drop down menu |
 | format | To create your own format |
 | defaultCountry | To make a country default selected |
 | onlyCountries | To filter country options |
