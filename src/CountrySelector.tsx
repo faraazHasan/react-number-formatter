@@ -3,7 +3,7 @@ import { ICountryList, ISelector } from "./t";
 import {c} from "./c";
 import React from "react";
 
-export const CountrySelector = (props: ISelector) => {
+export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
     const selector = useRef<HTMLDivElement>();
     const [selectedOption, setSelectedOption] = useState<string>(props.defaultCountry.c);
     const activeOption = useRef<number | undefined>();
@@ -11,8 +11,13 @@ export const CountrySelector = (props: ISelector) => {
     const drpBtn = useRef<HTMLButtonElement>();
 
     useEffect(()=> {
-        window.onclick = function(event: MouseEvent) {
+        window.onclick = function(event: MouseEvent | TouchEvent) {
             if (event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropbtn") {
+            selector.current && selector.current.classList.remove("show");
+            }
+        };
+        window.ontouchstart = function(event: TouchEvent) {
+            if ((event.target && (event.target as HTMLDivElement).className !== "react-number-formatter-option") && event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropbtn") {
             selector.current && selector.current.classList.remove("show");
             }
         };
@@ -69,34 +74,36 @@ export const CountrySelector = (props: ISelector) => {
     <div className="react-number-formatter-dropdown-parent">
         <button
             disabled={props.disabled}
-            className={props.selectorClass ? props.selectorClass : "react-number-formatter-dropbtn"}
+            className={"react-number-formatter-dropbtn"}
             style={countrySelectorStyle}
             onClick={getSelector}
             ref={(ref: HTMLButtonElement) => drpBtn.current = ref}
             >
-            {selectedOption} {(!shouldShowDrpDwn.current && props.disabled) ? "" : <span>&#x25BE;</span>}
+            <div className="react-number-formatter-dropbtn-text">
+            <span>{selectedOption}</span> {(!shouldShowDrpDwn.current && props.disabled) ? "" : <span className="react-number-formatter-arrow">&#x25BE;</span>}
+            </div>
         </button>
         <div 
             style={menuStyle}
             ref={(ref: HTMLDivElement)=> selector.current = ref} 
-            className={props.menuClass ? props.menuClass : "react-number-formatter-dropdown-content"}
+            className={"react-number-formatter-dropdown-content"}
         >
-            <a 
+            <button  
                 style={defaultOptionStyle}
                 onClick={selectDefaultOption} 
                 className="react-number-formatter-option" 
                 >
                 {props.defaultCountry.n} {props.defaultCountry.d}
-            </a>
+            </button>
             {countryOptions(c).map((country: ICountryList, index: number)=> {
             return (
-            <a 
+            <button 
             key={index} 
             onClick={()=> {
                 selectOption(country, index);
             }} 
             style={optionStyle(index)}
-            className="react-number-formatter-option">{country["n"]} {country["d"]}</a>
+            className="react-number-formatter-option">{country["n"]} {country["d"]}</button>
             );
             })}
         </div>

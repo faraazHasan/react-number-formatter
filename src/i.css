@@ -1,3 +1,8 @@
+
+.react-number-formatter-form{
+  display: flex;
+}
+
 .react-number-formatter-input {
     border: 1px solid rgb(214, 214, 214);
     outline: none;
@@ -5,22 +10,38 @@
     font-size: 14px;
     padding: 9px;
     background: none;
+    width: 100%;
 }
 
 .react-number-formatter-dropbtn {
-  border: 1px solid rgb(214, 214, 214);
+  border: 1px solid rgb(209, 207, 207);
   outline: none;
-  font-weight: 500;
+  font-weight: 700;
   color: #5a5959;
   background-color: rgb(248, 248, 248);
-  font-size: 14px;
-  padding: 8px 4px 9px 8px;
+  font-size: 13px;
+  padding: 9px 4px 9px 8px;
+  cursor:pointer;
 }
 
-.react-number-formatter-dropbtn:hover, .react-number-formatter-dropbtn:focus {
+.react-number-formatter-dropbtn:hover{
   background: none;
   border: 1px solid rgb(224, 222, 222);
 }
+
+.react-number-formatter-dropbtn-text {
+  display: flex;
+}
+.react-number-formatter-dropbtn-text {
+  pointer-events: none;
+}
+.react-number-formatter-dropbtn-text span {
+  margin: 1px 2px 0 0;
+}
+.react-number-formatter-dropbtn-text .react-number-formatter-arrow {
+  font-size: 12px;
+}
+
 
 .react-number-formatter-dropbtn-false {
   border: 1px solid rgb(214, 214, 214);
@@ -45,7 +66,7 @@
   min-width: 270px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 5;
-  height:200px;
+  height:500px;
   overflow: scroll;
   overflow-x: auto;
 }

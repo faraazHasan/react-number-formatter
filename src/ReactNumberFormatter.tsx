@@ -13,17 +13,7 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
     const [format, setFormat] = useState<string>(props.format? props.format : defaultCountry.f);
     const [fixedLength] = useState<boolean>(props.fixLength || props.fixLength === undefined ? true : false);
 
-    if(props.getCountryCode) {
-        const {prefix} = getDividersPositions(format);
-        let cCode: string = "";
-        for(let i = 0; i < prefix.length; i++) {
-            if(Number(prefix[i])) {
-                cCode += prefix[i];
-            }
-        }
-        cCode = cCode ? "+" + cCode : "";
-        props.getCountryCode(cCode);
-    }
+    props.getCountryCode && props.getCountryCode(countryCode);
     
     const ondown = async (key: string, e: React.KeyboardEvent<HTMLInputElement>) => {
         const { dividers, prefixIndexes, prefix, justSymbols } = getDividersPositions(format);
@@ -300,15 +290,17 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
     const inputStyle = props.format ?{borderRadius:"4px"} : {borderRadius:"0px 4px 4px 0px"};
   
     return (
-        <>  
+        <div className="react-number-formatter-form">
+            <label>
            {
             !props.format && 
-            <CountrySelector disabled={props.disabled} selectorClass={props.selectorClass} menuClass={props.menuClass} defaultCountry={defaultCountry} onlyCountries={props.onlyCountries} setCountryCode={(code: string) => setCountryCode(code)} setFormat={(value: string) => setFormat(value)} />
+            <CountrySelector disabled={props.disabled} defaultCountry={defaultCountry} onlyCountries={props.onlyCountries} setCountryCode={(code: string) => setCountryCode(code)} setFormat={(value: string) => setFormat(value)} />
            }
+            </label>
             <input
                 disabled={props.disabled}
                 type="tel"
-                className={props.inputClass ? props.inputClass : "react-number-formatter-input"}
+                className={"react-number-formatter-input"}
                 style={inputStyle}
                 value={inputValue(props.value as string)}
                 onKeyDown={e => ondown(e.key, e)}
@@ -317,6 +309,6 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
                 onCut={e => oncut(e)}
                 onClick={e => onclick(e)}
             />
-        </>
+        </div>
     );
 };
