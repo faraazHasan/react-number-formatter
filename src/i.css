@@ -7,7 +7,7 @@
     border: 1px solid rgb(214, 214, 214);
     outline: none;
     margin-left: -1px;
-    font-size: 14px;
+    font-size: inherit;
     padding: 9px;
     background: none;
     width: 100%;
@@ -19,7 +19,7 @@
   font-weight: 700;
   color: #5a5959;
   background-color: rgb(248, 248, 248);
-  font-size: 13px;
+  font-size: inherit;
   padding: 9px 4px 9px 8px;
   cursor:pointer;
 }
@@ -39,7 +39,7 @@
   margin: 1px 2px 0 0;
 }
 .react-number-formatter-dropbtn-text .react-number-formatter-arrow {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 
