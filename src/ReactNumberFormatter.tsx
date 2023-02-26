@@ -294,7 +294,15 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
             <label>
            {
             !props.format && 
-            <CountrySelector disabled={props.disabled} defaultCountry={defaultCountry} onlyCountries={props.onlyCountries} setCountryCode={(code: string) => setCountryCode(code)} setFormat={(value: string) => setFormat(value)} />
+            <CountrySelector 
+                disabled={props.disabled} 
+                fullIsoCode={props.fullIsoCode} 
+                searchOption={props.searchOption} 
+                defaultCountry={defaultCountry} 
+                onlyCountries={props.onlyCountries} 
+                setCountryCode={(code: string) => setCountryCode(code)} 
+                setFormat={(value: string) => setFormat(value)} 
+            />
            }
             </label>
             <input

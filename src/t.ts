@@ -1,12 +1,13 @@
 export interface NumberFormatterProps {
-    value: string | number | undefined;
+    value: string;
     getValue: (number: string) => void;
-    inputClass?: string;
     format?: string;
     defaultCountry?: string;
     onlyCountries?: string[];
     fixLength?: boolean;
     disabled?: boolean;
+    searchOption?: boolean;
+    fullIsoCode?: boolean;
     getCountryCode?: (code: string) => void;
 };
 
@@ -15,6 +16,7 @@ export interface ICountryList {
     c: string;
     d: string;
     f: string;
+    c_sm: string;
 };
 
 export interface ICasheKeywords {
@@ -25,6 +27,8 @@ export interface ISelector {
     disabled: boolean | undefined;
     onlyCountries: Array<string> | undefined;
     defaultCountry: ICountryList;
+    searchOption?: boolean;
+    fullIsoCode?: boolean;
     setFormat: (formate: string) => void;
     setCountryCode: (code: string) => void;
 };

@@ -38,29 +38,31 @@ export const getDefaultCountry = (ar: any, defaultCountry?: string, onlyCountrie
         c:"",
         f: "",
         n: "",
-        d: ""
+        d: "",
+        c_sm: ""
     };
     if(defaultCountry) {
         ar.forEach((c: any)=> {
-            if(c["c"] === defaultCountry?.toUpperCase() || c["n"] === defaultCountry?.toLowerCase()) {
-                console.log(format.c);
+            if(c["c"] === defaultCountry?.toUpperCase() || c["n"] === defaultCountry?.toLowerCase() || c["c_sm"] === defaultCountry?.toUpperCase()) {
                 format = {
                     c: c["c"],
                     f: c["f"],
                     n: c["n"],
-                    d: c["d"]
+                    d: c["d"],
+                    c_sm: c["c_sm"]
                 };
             }
         });
     }
     else if(onlyCountries) {
         ar.forEach((c: any)=> {
-        if(c["c"] === (onlyCountries as string[])[0].toUpperCase()) {
+        if(c["c"] === (onlyCountries as string[])[0].toUpperCase() || c["c_sm"] === (onlyCountries as string[])[0].toUpperCase()) {
             format = {
                 c: c["c"],
                 f: c["f"],
                 n: c["n"],
-                d: c["d"]
+                d: c["d"],
+                c_sm: c["c_sm"]
              };
         }
     });
@@ -70,7 +72,8 @@ export const getDefaultCountry = (ar: any, defaultCountry?: string, onlyCountrie
             c: "IND",
             f: "+91 ####-######",
             n: "India",
-            d: "+91"
+            d: "+91",
+            c_sm: "IN"
         };
     }
     return format;
