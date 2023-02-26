@@ -47,6 +47,7 @@ const [number, setNumber] = useState<string | number>();
 /> 
 ```
 https://user-images.githubusercontent.com/83122437/221404227-d350f2db-3ff5-4f67-945c-f3c694c4e587.mov
+![Screen_Recording_2023-02-26_at_3_15_51_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/221404674-44f3d567-8b28-4850-8276-d62aa97af423.gif)
 
 
 
