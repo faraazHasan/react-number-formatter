@@ -18,6 +18,8 @@ npm add react-number-formatter
 | onlyCountries | To filter country options |
 | fixLength | To limit input length |
 | disabled | To make input and selector disable|
+| fullIsoCode | Sets 3 letter ISO Code e.g. "IND", "USA"|
+| searchOption | To add or remove search bar|
 
 
 ## Usage
@@ -41,9 +43,10 @@ const [number, setNumber] = useState<string | number>();
 <NumberFormatter
   value={number}
   getValue={(n) => setNumber(n)}
+  fullIsoCode={true}
 /> 
 ```
-![Screen_Recording_2023-02-19_at_8_13_16_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/219955747-26a07edb-6a48-4015-bc13-0a6db7f299c7.gif)
+https://user-images.githubusercontent.com/83122437/221404227-d350f2db-3ff5-4f67-945c-f3c694c4e587.mov
 
 
 
@@ -53,6 +56,8 @@ const [number, setNumber] = useState<string | number>();
   defaultCountry="USA" 
   onlyCountries={["USA", "IND"]}
   value={number}
+  fullIsoCode={true}
+  searchOption={false}
   getValue={(n) => setNumber(n)}
 /> 
 ```
@@ -67,6 +72,8 @@ const [number, setNumber] = useState<string | number>();
   defaultCountry="USA"
   fixLength={false}
   value={number}
+  fullIsoCode={true}
+  searchOption={false}
   getValue={(n) => setNumber(n)}
 /> 
 ```
