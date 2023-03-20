@@ -14,13 +14,17 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
     const noOptions = useRef(false);
     useEffect(()=> {
         window.onclick = function(event: MouseEvent | TouchEvent) {
-            if ((event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropbtn") && (event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropdown-input")) {
-            selector.current && selector.current.classList.remove("show");
+            if ((event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropbtn") 
+            && (event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropdown-input")) {
+                selector.current && selector.current.classList.remove("show");
             }
         };
         window.ontouchstart = function(event: TouchEvent) {
-            if ((event.target && (event.target as HTMLDivElement).className !== "react-number-formatter-option") && (event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropbtn") && (event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropdown-input") && (event.target as HTMLDivElement).className !== "react-number-formatter-option-no-search") {
-            selector.current && selector.current.classList.remove("show");
+            if ((event.target && (event.target as HTMLDivElement).className !== "react-number-formatter-option") 
+            && (event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropbtn") 
+            && (event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropdown-input") 
+            && (event.target as HTMLDivElement).className !== "react-number-formatter-option-no-search") {
+                selector.current && selector.current.classList.remove("show");
             }
         };
     },[]);
@@ -86,10 +90,10 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
     <div className="react-number-formatter-dropdown-parent">
         <button
             disabled={props.disabled}
+            ref={(ref: HTMLButtonElement) => drpBtn.current = ref}
             className={"react-number-formatter-dropbtn"}
             style={countrySelectorStyle}
             onClick={getSelector}
-            ref={(ref: HTMLButtonElement) => drpBtn.current = ref}
             >
             <div className="react-number-formatter-dropbtn-text">
             <span>{selectedOption}</span> 
@@ -144,3 +148,4 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
     </div>
   );
 };
+
