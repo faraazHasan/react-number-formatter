@@ -10,6 +10,7 @@ export interface NumberFormatterProps {
     fullIsoCode?: boolean;
     getCountryCode?: (code: string) => void;
     name?: string;
+    register?: any;
 };
 
 export interface ICountryList {

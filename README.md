@@ -20,6 +20,7 @@ npm add react-number-formatter
 | disabled | To make input and selector disable|
 | fullIsoCode | Sets 3 letter ISO Code e.g. "IND", "USA"|
 | searchOption | To add or remove search bar|
+| register | To use this input inside react-hook-form|
 
 
 ## Usage
@@ -36,7 +37,27 @@ const [number, setNumber] = useState();
 const [number, setNumber] = useState<string | number>();
 ```
 
+## Example: Inside React-hook-form
 
+#
+```typescript
+<NumberFormatter 
+  register={{...register('number')}}
+  value={phone}
+  getValue={(n)=> setPhone(n)}
+/>
+```
+
+## Normal use
+
+#
+```typescript
+<NumberFormatter
+  value={number}
+  getValue={(n) => setNumber(n)}
+  fullIsoCode={true}
+/> 
+```
 
 #
 ```typescript
@@ -47,6 +68,7 @@ const [number, setNumber] = useState<string | number>();
 /> 
 ```
 https://user-images.githubusercontent.com/83122437/221404227-d350f2db-3ff5-4f67-945c-f3c694c4e587.mov
+
 ![Screen_Recording_2023-02-26_at_3_15_51_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/221404674-44f3d567-8b28-4850-8276-d62aa97af423.gif)
 
 
@@ -93,5 +115,3 @@ https://user-images.githubusercontent.com/83122437/221404227-d350f2db-3ff5-4f67-
 /> 
 ```
 ![Screen_Recording_2023-02-19_at_8_03_19_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/219955776-cb8be17d-df94-40b5-b872-9382c24a9187.gif)
-
-

@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { useState } from "react";
-import {c} from "./c";
-import { getDividersPositions } from "./m";
-import { getDefaultCountry } from "./m";
-import { ICountryList, NumberFormatterProps } from "./t";
-import "../public/styles/index.css";
+import {c} from "./countries";
+import { getDividersPositions } from "./utils";
+import { getDefaultCountry } from "./utils";
+import { ICountryList, NumberFormatterProps } from "./types";
+import "./index.css";
 import { CountrySelector } from "./CountrySelector";
 
 export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFormatterProps) => {
@@ -12,9 +12,8 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
     const [countryCode, setCountryCode] = useState<string>(defaultCountry.d);
     const [format, setFormat] = useState<string>(props.format? props.format : defaultCountry.f);
     const [fixedLength] = useState<boolean>(props.fixLength || props.fixLength === undefined ? true : false);
-    const inputElm = useRef<HTMLInputElement>();
     props.getCountryCode && props.getCountryCode(countryCode);
-    
+
     const ondown = async (key: string, e: React.KeyboardEvent<HTMLInputElement>) => {
         const { dividers, prefixIndexes, prefix, justSymbols } = getDividersPositions(format);
         const validKeys = /([0-9]|Backspace|ArrowLeft|ArrowRight|Control|v|c|x)/g;
@@ -186,7 +185,7 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
                     newValue += valAray[i];
                 }
             }
-            props.getValue(newValue);
+           props.getValue && props.getValue(newValue);
         }
         else {
             const valAray = Array.from(value);
@@ -205,7 +204,7 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
                     newValue += valAray[i];
                 }
             }
-            props.getValue(newValue);
+            props.getValue && props.getValue(newValue);
         }
     };
     const onpaste = async (e: React.ClipboardEvent<HTMLInputElement>) => {
@@ -294,11 +293,11 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
             <label>
            {
             !props.format && 
-            <CountrySelector disabled={props.disabled} fullIsoCode={props.fullIsoCode} searchOption={props.searchOption} defaultCountry={defaultCountry} onlyCountries={props.onlyCountries} setCountryCode={(code: string) => setCountryCode(code)} setFormat={(value: string) => setFormat(value)} />
+            <CountrySelector disabled={props.disabled} fullIsoCode={props.fullIsoCode} searchOption={props.searchOption} defaultCountry={defaultCountry} onlyCountries={props.onlyCountries} setCountryCode={(code: string) => setCountryCode(code)} setFormat={(value: string) => {setFormat(value); document.getElementById("reactNumberFormatter")?.focus();}} />
            }
             </label>
             <input
-                ref={(ref: HTMLInputElement) => inputElm.current = ref}
+                id="reactNumberFormatter"
                 disabled={props.disabled}
                 type="tel"
                 className={"react-number-formatter-input"}
@@ -310,6 +309,7 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
                 onCut={e => oncut(e)}
                 onClick={e => onclick(e)}
                 name={props.name}
+                {...props.register}
             />
         </div>
     );

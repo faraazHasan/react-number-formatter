@@ -1,4 +1,4 @@
-import { ICountryList } from "./t";
+import { ICountryList } from "./types";
 
 export const c = [
    {  "n":  "Afghanistan",

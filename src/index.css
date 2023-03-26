@@ -20,7 +20,7 @@
     color: #5a5959;
     background-color: #e9ecef;
     font-size: inherit;
-    padding: 0.375rem 0.375rem;
+    padding: 0.375rem 0.5rem ;
     cursor:pointer;
   }
 
@@ -30,7 +30,7 @@
   }
   
   .react-number-formatter-dropbtn-false {
-    padding: 0.375rem 0.75rem;;
+    padding: 0.375rem 0.5rem;;
     pointer-events: none;
   }
   .react-number-formatter-dropbtn-false:hover {

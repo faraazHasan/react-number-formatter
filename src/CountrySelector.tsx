@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { ICountryList, ISelector } from "./t";
-import {c} from "./c";
+import { ICountryList, ISelector } from "./types";
+import {c} from "./countries";
 import React from "react";
 
 export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
