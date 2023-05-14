@@ -21,7 +21,9 @@ npm add react-number-formatter
 | fullIsoCode | Sets 3 letter ISO Code e.g. "IND", "USA"|
 | searchOption | To add or remove search bar|
 | register | To use this input inside react-hook-form|
-
+| flags: Boolean | To get country code instead of flag |
+| placeholder: String | To change placeholder |
+| initialFormat: Boolean | When using this component in editable forms. this function automatically guess the the dial code and formats the number|
 
 ## Usage
 
@@ -36,74 +38,18 @@ const [number, setNumber] = useState();
 //for typescript
 const [number, setNumber] = useState<string | number>();
 ```
-
-## Example: Inside React-hook-form
-
-#
-```typescript
-<NumberFormatter 
-  register={{...register('number')}}
-  value={number}
-  getValue={(n)=> setPhone(n)}
-/>
-```
-
-## Normal use
-
-#
-```typescript
-<NumberFormatter
-  value={number}
-  getValue={(n) => setNumber(n)}
-  fullIsoCode={true}
-/> 
-```
-
-#
-```typescript
-<NumberFormatter
-  value={number}
-  getValue={(n) => setNumber(n)}
-  fullIsoCode={true}
-/> 
-```
-https://user-images.githubusercontent.com/83122437/221404227-d350f2db-3ff5-4f67-945c-f3c694c4e587.mov
-
-![Screen_Recording_2023-02-26_at_3_15_51_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/221404674-44f3d567-8b28-4850-8276-d62aa97af423.gif)
-
+<img width="764" alt="Screenshot 2023-05-14 at 1 55 15 PM" src="https://github.com/faraazHasan/react-number-formatter/assets/83122437/8c5d05d2-98d1-4671-89c3-d6456185e46d">
 
 
 #
 ```typescript
 <NumberFormatter
-  defaultCountry="USA" 
-  onlyCountries={["USA", "IND"]}
   value={number}
-  fullIsoCode={true}
-  searchOption={false}
-  getValue={(n) => setNumber(n)}
+  initialFormat={true}
+  getValue={(n: string) => setNumber(n)}
 /> 
 ```
-![Screen_Recording_2023-02-19_at_8_16_35_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/219955707-a44a2a5e-d4c1-443c-a80f-72655455404c.gif)
-
-
-
-
-#### make fixLength "false" to add number bigger than fotmat.length
-```typescript
-<NumberFormatter
-  defaultCountry="USA"
-  fixLength={false}
-  value={number}
-  fullIsoCode={true}
-  searchOption={false}
-  getValue={(n) => setNumber(n)}
-/> 
-```
-![Screen_Recording_2023-02-19_at_8_01_58_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/219955783-8f668d77-e99e-4564-bc03-d106b937b6d6.gif)
-
-
-
+![Screen Recording 2023-05-14 at 2 03 26 PM](https://github.com/faraazHasan/react-number-formatter/assets/83122437/928e0417-636c-4148-85d2-170e641fc421)
 
 
 ## You can create your own format too. 
@@ -111,7 +57,7 @@ https://user-images.githubusercontent.com/83122437/221404227-d350f2db-3ff5-4f67-
 <NumberFormatter
   format={"+1 (###)-(###)-####"}
   value={number}
-  getValue={(n) => setNumber(n)}
+  getValue={(n: string) => setNumber(n)}
 /> 
 ```
 ![Screen_Recording_2023-02-19_at_8_03_19_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/219955776-cb8be17d-df94-40b5-b872-9382c24a9187.gif)
