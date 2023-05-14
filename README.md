@@ -43,7 +43,7 @@ const [number, setNumber] = useState<string | number>();
 ```typescript
 <NumberFormatter 
   register={{...register('number')}}
-  value={phone}
+  value={number}
   getValue={(n)=> setPhone(n)}
 />
 ```

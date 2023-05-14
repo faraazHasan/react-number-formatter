@@ -1,17 +1,32 @@
+import React from "react"; 
 import { useEffect, useRef, useState } from "react";
-import { ICountryList, ISelector } from "./types";
-import {c} from "./countries";
-import React from "react";
+import { ICountryList, ISelector } from "./t";
+import {c} from "./c";
+import Arrow from './Arrow';
 
 export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
     const selector = useRef<HTMLDivElement>();
-    const [selectedOption, setSelectedOption] = useState<string>(props.fullIsoCode ? props.defaultCountry.c : props.defaultCountry.c_sm);
+    const [imgErr, setImgErr] = useState(true);
+    const [selectedOption, setSelectedOption] = useState<string>();
     const activeOption = useRef<number | undefined>();
     const shouldShowDrpDwn = useRef<boolean>(true);
     const drpBtn = useRef<HTMLButtonElement>();
     const selectorInput = useRef<HTMLInputElement>();
     const [search, setSearch] = useState("");
     const noOptions = useRef(false);
+
+    useEffect(()=> { 
+        const img = new Image()
+        img.onload = () => {
+          setSelectedOption((props.flags === undefined || props.flags) ? props.defaultCountry.fg : props.fullIsoCode ? props.defaultCountry.c : props.defaultCountry.c_sm)
+          setImgErr(false);
+        }
+        img.onerror = () => {
+          setSelectedOption(props.fullIsoCode ? props.defaultCountry.c : props.defaultCountry.c_sm)
+          setImgErr(true)
+        }
+        img.src = c[0].fg
+      },[]) 
     useEffect(()=> {
         window.onclick = function(event: MouseEvent | TouchEvent) {
             if ((event.target && (event.target as HTMLButtonElement).className !== "react-number-formatter-dropbtn") 
@@ -38,7 +53,7 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
             else {
                 selector.current && shouldShowDrpDwn.current && selector.current.classList.remove("react-number-formatter-dropdown-content-top");
             }
-        }
+        } 
         selector.current && shouldShowDrpDwn.current && selector.current.classList.toggle("show");
     };
     const menuStyle = props.onlyCountries ? props.onlyCountries.length < 5 ? {
@@ -46,15 +61,19 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
     } : {} : {};
 
     const selectOption = (country: ICountryList, index: number) => {
-        changeCountry(country["f"], country["d"]);
-        setSelectedOption( props.fullIsoCode ? country["c"] : country["c_sm"]);
-        activeOption.current = index;
-    };
+        changeCountry(country['f'], country['d'], country['p'])
+        setSelectedOption(((props.flags === undefined || props.flags) && !imgErr) ? country['fg'] : props.fullIsoCode ? country['c'] : country['c_sm'])
+        activeOption.current = index
+      }
 
     const countrySelectorStyle = {borderRadius:"4px 0px 0px 4px"};
 
-    const changeCountry = async (format: string, code: string)=> {
-        props.setFormat(format);
+    const changeCountry = async (format: string, code: string, placeholder: string)=> {
+        props.setFormat({
+            format,
+            placeholder,
+          }) 
+        props.mainInput?.focus()
         props.setCountryCode(code);
     };
     
@@ -96,11 +115,23 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
             onClick={getSelector}
             >
             <div className="react-number-formatter-dropbtn-text">
-            <span>{selectedOption}</span> 
             {
-                ((props.onlyCountries && props.onlyCountries.length < 2 && (props.onlyCountries[0] === props.defaultCountry.c_sm || props.onlyCountries[0] === props.defaultCountry.c)) || props.disabled) ? "" 
-                : 
-                <span className="react-number-formatter-arrow">&#x25BE;</span>}
+            ((props.flags === undefined || props.flags) && !imgErr) ?
+            <img src={selectedOption} className={"react-number-formatter-selected-flag zoom"} alt={selectedOption} />
+            : 
+            <span>{selectedOption}</span>
+          }
+          {(props.onlyCountries &&
+            props.onlyCountries.length < 2 &&
+            (props.onlyCountries[0] === props.defaultCountry.c_sm ||
+              props.onlyCountries[0] === props.defaultCountry.c)) ||
+          props.disabled ? (
+            ''
+          ) :
+            <div className={"react-number-formatter-arrow-parent"}>
+                <Arrow color={'rgb(108, 108, 108)'} />
+            </div>
+            }
             </div>
         </button>
         <div 
@@ -122,6 +153,7 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
                 />
             </div>
            }
+           <div className={"react-number-formatter-dropdown-content-child"}>
             <div>
             {
                 countryOptions(c).map((country: ICountryList, index: number)=> {
@@ -131,9 +163,11 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
                         onClick={()=> {
                             selectOption(country, index);
                         }} 
-                        className={props.searchOption || props.searchOption === undefined ? "react-number-formatter-option" : "react-number-formatter-option-no-search"}>{country["n"]} {country["d"]}
+                        className={"react-number-formatter-option"}
+                        >
+                        {((props.flags === undefined || props.flags) && !imgErr) ? <img src={country['fg']} alt="" className={"react-number-formatter-flag"} /> : ""} {country['n']} {country['d']}
                     </button>
-                    );
+                    )
                 })
             }
             {
@@ -143,6 +177,7 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
                 </p>
             }
             </div>
+           </div>
         </div>
         
     </div>
