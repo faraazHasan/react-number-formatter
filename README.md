@@ -17,9 +17,12 @@ npm add react-number-formatter
 | defaultCountry | To make a country default selected |
 | onlyCountries | To filter country options |
 | fixLength | To limit input length |
+| initialFormat: Boolean | When using this component in editable forms. this function automatically guess the the dial code and formats the number|
 | disabled | To make input and selector disable|
 | fullIsoCode | Sets 3 letter ISO Code e.g. "IND", "USA"|
 | searchOption | To add or remove search bar|
+| flags: Boolean | To get country code instead of flag |
+| placeholder: String | To change placeholder |
 
 
 ## Usage
@@ -35,54 +38,19 @@ const [number, setNumber] = useState();
 //for typescript
 const [number, setNumber] = useState<string | number>();
 ```
-
-
-
-#
-```typescript
-<NumberFormatter
-  value={number}
-  getValue={(n) => setNumber(n)}
-  fullIsoCode={true}
-/> 
-```
-https://user-images.githubusercontent.com/83122437/221404227-d350f2db-3ff5-4f67-945c-f3c694c4e587.mov
-![Screen_Recording_2023-02-26_at_3_15_51_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/221404674-44f3d567-8b28-4850-8276-d62aa97af423.gif)
-
-
-
-#
-```typescript
-<NumberFormatter
-  defaultCountry="USA" 
-  onlyCountries={["USA", "IND"]}
-  value={number}
-  fullIsoCode={true}
-  searchOption={false}
-  getValue={(n) => setNumber(n)}
-/> 
-```
-![Screen_Recording_2023-02-19_at_8_16_35_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/219955707-a44a2a5e-d4c1-443c-a80f-72655455404c.gif)
-
-
+<img width="764" alt="Screenshot 2023-05-14 at 1 55 15 PM" src="https://github.com/faraazHasan/react-number-formatter/assets/83122437/3744fd5e-dc45-430a-99d1-7c730038a537">
 
 
 #### make fixLength "false" to add number bigger than fotmat.length
 ```typescript
 <NumberFormatter
-  defaultCountry="USA"
-  fixLength={false}
   value={number}
-  fullIsoCode={true}
-  searchOption={false}
+  initialFormat={true}
   getValue={(n) => setNumber(n)}
 /> 
 ```
-![Screen_Recording_2023-02-19_at_8_01_58_PM_AdobeExpress](https://user-images.githubusercontent.com/83122437/219955783-8f668d77-e99e-4564-bc03-d106b937b6d6.gif)
 
-
-
-
+![Screen Recording 2023-05-14 at 2 03 26 PM](https://github.com/faraazHasan/react-number-formatter/assets/83122437/f501ee65-0e8c-45af-8bf2-64a1c02aaf5f)
 
 ## You can create your own format too. 
 ```typescript
