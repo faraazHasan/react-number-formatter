@@ -18,7 +18,15 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
           props.includeDialingCode
         ),
       )
-    const [countryCode, setCountryCode] = useState<string>(defaultCountry.d);
+      const [countryCode, setCountryCode] = useState<string>(()=> {
+        if(props.format !== undefined) {
+          const {prefix} = getSeperatorsPositions(props.format)
+          return prefix
+        }
+        else {
+          return defaultCountry.d
+        }
+      })
     const [format, setFormat] = useState<IFormat>({
         format: props.format ? props.format : defaultCountry.f,
         placeholder: props.placeholder ? props.placeholder : defaultCountry.p,
