@@ -5,6 +5,8 @@ export const getSeperatorsPositions = (format: string) => {
   let prefixIndexes: any = []
   let prefix = ''
   let justSymbols = ''
+  let countryCode = '+'
+
   for (let i = 0; i < format.length; i++) {
     if (format[i] !== '#') {
       seperators.push({
@@ -29,9 +31,12 @@ export const getSeperatorsPositions = (format: string) => {
   if (prefixIndexes.length) {
     for (let i = 0; i < prefixIndexes.length; i++) {
       prefix += format[i]
+      if(!isNaN(+format[i])) {
+        countryCode+=format[i]
+      }
     }
   }
-  return { seperators, prefixIndexes, prefix, justSymbols }
+  return { seperators, prefixIndexes, prefix, justSymbols,countryCode }
 }
 
 export const getDefaultCountry = (

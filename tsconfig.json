@@ -1,15 +1,17 @@
 {
-    "compilerOptions": {
-      "strict": true,
-      "jsx": "react",
-      "declaration": true,
-      "esModuleInterop": true,
-      "outDir": "dist",
-      "target": "es6",
-      "lib": ["es6", "dom", "es2017"],
-      "module": "es6",
-      "moduleResolution": "node"
-    },
-    "include": ["src","public"]
-  }
-  
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react",
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "target": "es6",
+    "lib": ["es6", "dom", "es2017"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}

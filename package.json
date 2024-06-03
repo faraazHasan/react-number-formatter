@@ -1,12 +1,14 @@
 {
   "name": "react-number-formatter",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "This react input component automatically formats phone numbers inside input and returns the number you actually typed.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist",
-    "build": "npm run clean && tsc && cp package.json README.md ./dist"
+    "build": "npm run clean && tsc && cp package.json README.md ./dist",
+    "lint": "eslint --no-ignore src/*.{ts,tsx}"
   },
   "repository": {
     "type": "git",
@@ -33,9 +35,21 @@
   },
   "homepage": "https://github.com/faraazHasan/react-number-formatter#readme",
   "devDependencies": {
+    "@types/minimatch": "^5.1.2",
     "@types/react": "^18.0.28",
+    "@typescript-eslint/eslint-plugin": "^7.11.0",
+    "@typescript-eslint/parser": "^7.11.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.4.0",
+    "eslint-plugin-react": "^7.34.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^4.9.5"
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^4.9.5",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   }
 }

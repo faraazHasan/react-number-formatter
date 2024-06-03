@@ -6,34 +6,54 @@ import "./i.css";
 import { CountrySelector } from "./CountrySelector";
 
 export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFormatterProps) => {
+    const {
+      value,
+      getValue,
+      format: formatFromProps,
+      defaultCountry: defaultCountryFromProps,
+      onlyCountries,
+      fixLength,
+      disabled,
+      searchOption,
+      fullIsoCode,
+      getCountryCode,
+      name,
+      placeholder,
+      prefix: prefixFromProps,
+      initialFormat,
+      includeDialingCode,
+      register,
+      flags,
+      onBlur
+    } = props
     const [newCountries] = useState<ICountryList[]>([...c].sort(compare));
     const [defaultCountry] = useState<ICountryList>(
         getDefaultCountry(
           newCountries,
           c,
-          props.defaultCountry,
-          props.onlyCountries,
-          String(props.value),
-          props.initialFormat,
-          props.includeDialingCode
+          defaultCountryFromProps,
+          onlyCountries,
+          String(value),
+          initialFormat,
+          includeDialingCode
         ),
       )
       const [countryCode, setCountryCode] = useState<string>(()=> {
-        if(props.format !== undefined) {
-          const {prefix} = getSeperatorsPositions(props.format)
-          return prefix
+        if(formatFromProps !== undefined) {
+          const {countryCode} = getSeperatorsPositions(formatFromProps)
+          return countryCode
         }
         else {
           return defaultCountry.d
         }
       })
     const [format, setFormat] = useState<IFormat>({
-        format: props.format ? props.format : defaultCountry.f,
-        placeholder: props.placeholder ? props.placeholder : defaultCountry.p,
+        format: formatFromProps ? formatFromProps : defaultCountry.f,
+        placeholder: placeholder ? placeholder : defaultCountry.p,
       })
-    const [fixedLength] = useState<boolean>(props.fixLength || props.fixLength === undefined ? true : false);
+    const [fixedLength] = useState<boolean>(fixLength || fixLength === undefined ? true : false);
     const inputElm = useRef<HTMLInputElement>();
-    props.getCountryCode && props.getCountryCode(countryCode);
+    getCountryCode && getCountryCode(countryCode);
 
     useEffect(() => {
       if(inputElm.current) {
@@ -190,7 +210,7 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
           }
         }
         let modifiedNumber: string
-        if (props.prefix) {
+        if (prefixFromProps) {
           if (!value.length && prefix) {
             if (prefix[prefix.length] === '(') {
               const val = prefix.slice(0, prefix.length - 1)
@@ -231,10 +251,10 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
               newValue += valAray[i]
             }
           }
-          if ((props.includeDialingCode === undefined || props.includeDialingCode) && newValue.length) {
-            props.getValue && props.getValue(countryCode.slice(1, countryCode.length) + newValue)
+          if ((includeDialingCode === undefined || includeDialingCode) && newValue.length) {
+            getValue && getValue(countryCode.slice(1, countryCode.length) + newValue)
           } else {
-            props.getValue && props.getValue(newValue)
+            getValue && getValue(newValue)
           }
         } else {
           const valAray = Array.from(value)
@@ -251,10 +271,12 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
               newValue += valAray[i]
             }
           }
-          if ((props.includeDialingCode === undefined || props.includeDialingCode) && newValue.length) {
-            props.getValue && props.getValue(countryCode.slice(1, countryCode.length) + newValue)
+         
+          
+          if ((includeDialingCode === undefined || includeDialingCode) && newValue.length) {
+            getValue && getValue(countryCode.slice(1, countryCode.length) + newValue)
           } else {
-            props.getValue && props.getValue(newValue)
+            getValue && getValue(newValue)
           }
         }
       }
@@ -341,8 +363,8 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
     
       const inputValue = (value: string | number) => {
         let text = String(value)
-        if (props.includeDialingCode === undefined || props.includeDialingCode) {
-          if(props.format) {
+        if (includeDialingCode === undefined || includeDialingCode) {
+          if(formatFromProps) {
             const pre = countryCode.slice(1, countryCode.length)
             if (text.startsWith(pre)) {
               text = value.toString().slice(countryCode.length - 1, text.length)
@@ -360,41 +382,41 @@ export const NumberFormatter: React.FC<NumberFormatterProps> = (props: NumberFor
         return arrangeNumber(text)
       }
 
-    const inputStyle = props.format ?{borderRadius:"4px",padding: "0.275rem 0.5rem"} : {borderRadius:"0px 4px 4px 0px"};
+    const inputStyle = formatFromProps ?{borderRadius:"4px",padding: "0.275rem 0.5rem"} : {borderRadius:"0px 4px 4px 0px"};
   
     return (
         <div className="react-number-formatter-form">
             <label>
-            {!props.format && (
+            {!formatFromProps && (
             <CountrySelector
-                disabled={props.disabled}
-                fullIsoCode={props.fullIsoCode}
-                searchOption={props.searchOption}
+                disabled={disabled}
+                fullIsoCode={fullIsoCode}
+                searchOption={searchOption}
                 defaultCountry={defaultCountry}
-                onlyCountries={props.onlyCountries}
+                onlyCountries={onlyCountries}
                 setCountryCode={(code: string) => setCountryCode(code)}
                 setFormat={(value: IFormat) => setFormat(value)}
                 mainInput={inputElm.current}
-                flags={props.flags}
+                flags={flags}
             />
             )}
             </label>
             <input
                 ref={(ref: HTMLInputElement) => inputElm.current = ref}
-                disabled={props.disabled}
+                disabled={disabled}
                 type="tel"
                 className={"react-number-formatter-input"}
                 style={inputStyle}
-                value={inputValue(props.value as string)}
+                value={inputValue(value as string)}
                 onKeyDown={e => ondown(e.key, e)}
                 onPaste={e => onpaste(e)}
                 placeholder={format.placeholder}
                 onChange={e => updateNumber(e.currentTarget)}
                 onCut={e => oncut(e)}
                 onClick={e => onclick(e)}
-                name={props.name}
-                onBlur={props.onBlur}
-                {...props.register}
+                name={name}
+                onBlur={onBlur}
+                {...register}
             />
         </div>
     );
