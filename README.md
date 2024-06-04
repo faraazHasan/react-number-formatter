@@ -1,5 +1,5 @@
 # react-number-formatter
-This react input component automatically formats phone numbers inside input and returns the number you actually typed.
+This React input component automatically formats phone numbers as you type and returns the actual number you entered. 😊
 
 ## Installation
 
@@ -25,7 +25,11 @@ npm add react-number-formatter
 | placeholder: String | To change placeholder |
 | initialFormat: Boolean | When using this component in editable forms. this function automatically guess the the dial code and formats the number|
 
-## Usage
+
+## [Demo](https://codesandbox.io/p/sandbox/still-resonance-46gr7f?file=%2Fsrc%2FApp.js) with hook form
+
+
+## Normal Usage
 
 ```typescript
 import { NumberFormatter } from 'react-number-formatter';
@@ -38,6 +42,9 @@ const [number, setNumber] = useState();
 //for typescript
 const [number, setNumber] = useState<string | number>();
 ```
+
+
+
 <img width="764" alt="Screenshot 2023-05-14 at 1 55 15 PM" src="https://github.com/faraazHasan/react-number-formatter/assets/83122437/8c5d05d2-98d1-4671-89c3-d6456185e46d">
 
 
