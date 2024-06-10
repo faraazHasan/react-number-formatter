@@ -26,7 +26,7 @@ npm add react-number-formatter
 | initialFormat: Boolean | When using this component in editable forms. this function automatically guess the the dial code and formats the number|
 
 
-## [Demo](https://codesandbox.io/p/sandbox/still-resonance-46gr7f?file=%2Fsrc%2FApp.js) with hook form
+## [Demo](https://codesandbox.io/p/sandbox/still-resonance-46gr7f?file=%2Fsrc%2FApp.js&from-embed=) with hook form
 
 
 ## Normal Usage
@@ -59,7 +59,7 @@ const [number, setNumber] = useState<string | number>();
 ![Screen Recording 2023-05-14 at 2 03 26 PM](https://github.com/faraazHasan/react-number-formatter/assets/83122437/928e0417-636c-4148-85d2-170e641fc421)
 
 
-## You can create your own format too. 
+## You can create your own format. 
 ```typescript
 <NumberFormatter
   format={"+1 (###)-(###)-####"}
