@@ -113,6 +113,7 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
             className={"react-number-formatter-dropbtn"}
             style={countrySelectorStyle}
             onClick={getSelector}
+            type="button"
             >
             <div className="react-number-formatter-dropbtn-text">
             {
@@ -164,6 +165,7 @@ export const CountrySelector: React.FC<ISelector> = (props: ISelector) => {
                             selectOption(country, index);
                         }} 
                         className={"react-number-formatter-option"}
+                        type="button"
                         >
                         {((props.flags === undefined || props.flags) && !imgErr) ? <img src={country['fg']} alt="" className={"react-number-formatter-flag"} /> : ""} {country['n']} {country['d']}
                     </button>

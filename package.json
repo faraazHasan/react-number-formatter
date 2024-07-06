@@ -1,6 +1,6 @@
 {
   "name": "react-number-formatter",
-  "version": "1.0.21",
+  "version": "1.0.26",
   "description": "This react input component automatically formats phone numbers inside input and returns the number you actually typed.",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
@@ -10,6 +10,9 @@
     "build": "npm run clean && tsc && cp package.json README.md ./dist",
     "lint": "eslint --no-ignore src/*.{ts,tsx}"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/faraazHasan/react-number-formatter.git"

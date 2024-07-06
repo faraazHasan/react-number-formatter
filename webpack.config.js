@@ -1,48 +1,58 @@
-const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// Generated using webpack-cli https://github.com/webpack/webpack-cli
 
-module.exports = {
-    entry: './src/index.ts', // Entry point of your package
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const isProduction = process.env.NODE_ENV == 'production';
+
+
+const stylesHandler = MiniCssExtractPlugin.loader;
+
+
+
+const config = {
+    entry: './src/index.ts',
     output: {
-        filename: 'index.js', // Output bundle file name
-        path: path.resolve(__dirname, 'dist'), // Output directory
-        library: 'react-number-formatter', // Name of your library
-        libraryTarget: 'umd', // Universal Module Definition (UMD) format
-        globalObject: 'this', // Global object used in UMD
-        umdNamedDefine: true, // Use a named define for UMD
+        path: path.resolve(__dirname, 'dist'),
     },
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js'], // Resolve these file extensions
-    },
+    plugins: [
+        new MiniCssExtractPlugin(),
+
+        // Add your plugins here
+        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+    ],
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
+                test: /\.(ts|tsx)$/i,
+                loader: 'ts-loader',
+                exclude: ['/node_modules/'],
             },
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                test: /\.css$/i,
+                use: [stylesHandler, 'css-loader'],
             },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+                type: 'asset',
+            },
+
+            // Add your rules for custom modules here
+            // Learn more about loaders from https://webpack.js.org/loaders/
         ],
     },
-    externals: {
-        // Specify external dependencies that shouldn't be bundled
-        react: {
-            commonjs: 'react',
-            commonjs2: 'react',
-            amd: 'react',
-            root: 'React',
-        },
-        'react-dom': {
-            commonjs: 'react-dom',
-            commonjs2: 'react-dom',
-            amd: 'react-dom',
-            root: 'ReactDOM',
-        },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
     },
-    plugins: [
-        new CleanWebpackPlugin(), // Clean the 'dist' directory before each build
-    ],
+};
+
+module.exports = () => {
+    if (isProduction) {
+        config.mode = 'production';
+
+
+    } else {
+        config.mode = 'development';
+    }
+    return config;
 };
